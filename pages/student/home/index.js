@@ -34,6 +34,8 @@ import { CircularProgressbarWithChildren } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import dayjs from 'dayjs';
 import Link from 'next/link';
+import data from "../../../data/data.json";
+
 const styledIcon = `
   color: ${appSettings.colors.primary};
   width: 30px;
@@ -55,20 +57,21 @@ const TextDocumentIcon = styled(TextDocument)
 `
 	${styledIcon}
 `;
-
 const initialCancelLesson = {
 		BookingID: '',
 		LessionName: '',
 		date: '',
 		start: '',
 		end: '',
-		reason: '',
+		reason: '' ,
 };
+
 const initialRatingLesson = {
 		BookingID: '',
 		TeacherUID: '',
 		TeacherName: '',
 };
+
 const initialRequireLesson = {
 		BookingID: '',
 		avatar: '',
@@ -218,12 +221,23 @@ const Home = () => {
 		};
 
 		const getAPI = async () => {
+				
+				// const res = await getLessons();
+				
 				setLoading(true);
-				const res = await getLessons();
-				if (res.Code === 1) {
-						setState(res.Data);
+				
+				try {
+					await new Promise(e=>setTimeout(e,1000));
+					setLoading(false);
+					// if (res.Code === 1) {
+					// 		setState(res.Data);
+					// }
+					setState(data)
+				} catch (error) {
+					setLoading(false);
 				}
-				setLoading(false);
+
+				
 		};
 
 		const _getCoursesInfoAPI = async () => {
@@ -231,12 +245,13 @@ const Home = () => {
 				const res = await getCoursesInfoAPI();
 				if (res.Code === 1) {
 						setCourseInfo({
-								...res.Data,
+							...res.Data,
 								Message: '',
+														
 						});
 				} else {
 						setCourseInfo({
-								Message: res.Message,
+							Message: res.Message,		
 						});
 				}
 				setLoadingCourseInfo(false);
@@ -253,12 +268,9 @@ const Home = () => {
 		return ( <
 				>
 				<h1 className="main-title-page">Dashboard</h1> <
-				div className = "overall__summary pd-15 pd-30" > {!!courseInfo && !courseInfo.Message ? ( <
-								>
-								{
-										courseInfo.Message !== undefined ? ( <
-												>
-												<div className="overall__summary-info d-flex flex-wrap">
+				div className = "overall__summary pd-15 pd-30" > {
+			
+								<div className="overall__summary-info d-flex flex-wrap">
 									<div className="course-info">
 										<div className="d-flex align-items-center mg-b-30 mg-b-0">
 											<div className={`course-image mg-r-15`}>
@@ -274,14 +286,14 @@ const Home = () => {
 													className="tx-bold d-block mg-b-5 tx-primary"
 												>
 													<span className="course-name">
-														{courseInfo.CoursesName}
+													{data.MainTitle[0].Name}
 													</span>
 												</a>
 											</div>
 										</div>
 									</div>
-								</div> { ' ' }
-									<div className="overall__summary-summary pd-t-15 d-flex flex-wrap justify-content-between">
+								</div> }
+												<div className="overall__summary-summary pd-t-15 d-flex flex-wrap justify-content-between">
 									<div className="left d-flex flex-wrap flex-grow-1 w-80">
 										<div className="summary-item student-summary-item w-25">
 											
@@ -290,9 +302,7 @@ const Home = () => {
 													Trình độ hiện tại
 												</label>
 												<label className="d-block bold count">
-													{!!courseInfo.LevelEnglishPresent
-														? courseInfo.LevelEnglishPresent
-														: 'Chưa rõ'}
+													{data.LvCurrent[0].ID}
 												</label>
 											</div>
 										</div>
@@ -303,9 +313,7 @@ const Home = () => {
 													Trình độ mục tiêu
 												</label>
 												<label className="d-block bold count">
-													{!!courseInfo.LevelEnglishDesire
-														? courseInfo.LevelEnglishDesire
-														: 'Chưa rõ'}
+												{data.LvNow[0].ID}
 												</label>
 											</div>
 										</div>
@@ -316,9 +324,7 @@ const Home = () => {
 													Số buổi học đã hoàn thành
 												</label>
 												<label className="d-block bold count">
-													{!!state &&
-														!!state.StudyProcess &&
-														state.StudyProcess.CompleteLessions}
+												{data.ClassComplete[0].ID}
 												</label>
 											</div>
 										</div>
@@ -329,9 +335,7 @@ const Home = () => {
 													Số buổi học vắng mặt
 												</label>
 												<label className="d-block bold count">
-													{!!state &&
-														!!state.StudyProcess &&
-														state.StudyProcess.NumberOfAbsences}
+												{data.ClassCanceled[0].ID}
 												</label>
 											</div>
 										</div>
@@ -342,11 +346,7 @@ const Home = () => {
 													Ngày bắt đầu
 												</label>
 												<label className="d-block bold count">
-													{!!courseInfo.StartDate
-														? dayjs(courseInfo.StartDate).format(
-																'DD/MM/YYYY',
-														  )
-														: 'Chưa bắt đầu'}
+													{data.StartDay[0].ID}
 												</label>
 											</div>
 										</div>
@@ -357,24 +357,17 @@ const Home = () => {
 													Ngày kết thúc
 												</label>
 												<label className="d-block bold count">
-													{!!courseInfo.EndDate
-														? dayjs(courseInfo.EndDate).format(
-																'DD/MM/YYYY',
-														  )
-														: 'Chưa kết thúc'}
+												{data.EndDay[0].ID}
 												</label>
 											</div>
 										</div>
-										<div className="summary-item student-summary-item w-25">
-											
+										<div className="summary-item student-summary-item w-25">											
 											<div className="mg-l-10 title">
 												<label className="d-block label">
 													Số buổi học đã hủy
 												</label>
 												<label className="d-block bold count">
-													{!!state &&
-														!!state.StudyProcess &&
-														state.StudyProcess.NumberOfLessionsLeft}
+												{data.ClassCanceled[0].ID}
 												</label>
 											</div>
 										</div>
@@ -385,9 +378,7 @@ const Home = () => {
 													Số buổi học còn lại
 												</label>
 												<label className="d-block bold count">
-													{!!state &&
-														!!state.StudyProcess &&
-														state.StudyProcess.NumberOfLessionsLeft}
+												{data.ClassRest[0].ID}
 												</label>
 											</div>
 										</div>
@@ -416,15 +407,10 @@ const Home = () => {
                     </div>
                   </div>
                 </div> */}
-								</div> <
-												/>
-										) : (
-												''
-										)
-								} <
-								/>
-						) : (
-								<div className="tx-center pd-y-30">
+								</div> 
+							
+
+								<div className="tx-center pd-y-30 dispaly-none">
 						<img
 							src={`/static/assets/img/course.svg`}
 							className={`wd-200 mg-b-15 round-circle`}
@@ -434,14 +420,14 @@ const Home = () => {
 							{courseInfo && courseInfo.Message}
 						</span>
 					</div>
-						)
-				} <
-				/div> {!state ? (
-						<NOT_DATA_FOUND />
-				) : ( <
-						>
-						<div className="lesson mg-t-45 animated fadeInUp am-animation-delay-1">
-						<div className="d-xl-flex align-items-center justify-content-between ">
+						
+				 <
+				/div> {!state ? ( <
+				NOT_DATA_FOUND / >
+		): ( <
+				>
+				<div className="lesson mg-t-45 animated fadeInUp am-animation-delay-1">
+						<div className="d-xl-flex align-items-center justify-content-between">
 							<h4 className="title-section">Buổi học sắp diễn ra</h4>
 							<Link href={'/student/upcoming-classes'}>
 								<a
@@ -453,10 +439,7 @@ const Home = () => {
 								</a>
 							</Link>
 						</div>
-						{!!state.UpcomingLessions &&
-						!!state.UpcomingLessions &&
-						state.UpcomingLessions.length + state.UpcomingLessions.length ===
-							0 ? (
+						
 							<div className="empty-error tx-center mg-y-15 cr-item bg-white bg-f2 rounded-5 pd-15 pd-30 shadow">
 								<img
 									src="/static/img/no-data.svg"
@@ -470,9 +453,7 @@ const Home = () => {
 									Đặt lịch học
 								</a>
 							</div>
-						) : (
-							''
-						)}
+
 						<div className="course-horizental mg-t-15">
 							<ul className="list-wrap">
 								{loading ? (
@@ -507,8 +488,8 @@ const Home = () => {
 							</ul>
 						</div>
 					</div> <
-						div className = "lesson mg-t-45 animated fadeInUp am-animation-delay-2" >
-						<div className="d-xl-flex align-items-center justify-content-between ">
+				div className = "lesson mg-t-45 animated fadeInUp am-animation-delay-2" >
+				<div className="d-xl-flex align-items-center justify-content-between ">
 							<h4 className="title-section">Buổi học đã hoàn thành</h4>
 							<Link href={'/student/class-history'}>
 								<a
@@ -520,30 +501,9 @@ const Home = () => {
 								</a>
 							</Link>
 						</div> <
-						div className = "course-horizental mg-t-15" >
-						<ul className="list-wrap">
-								{loading ? (
-									<SkeletonLessonCard />
-								) : (
-									!!state.LessionHistory &&
-									(state.LessionHistory.length > 0 ? (
-										state.LessionHistory.map((item) => (
-											<LessonHistoryCard
-												key={item.BookingID}
-												BookingID={item.BookingID}
-												TeacherUID={item.TeacherUID}
-												avatar={item.TeacherIMG}
-												TeacherName={item.TeacherName}
-												LessionName={item.LessionName}
-												Status={item.Status}
-												start={convertDateFromTo(item.Schedule).fromTime}
-												end={convertDateFromTo(item.Schedule).endTime}
-												date={convertDateFromTo(item.Schedule).date}
-												Rate={item.Rate}
-												onHandleRatingLesson={handleRatingLesson}
-											/>
-										))
-									) : (
+				div className = "course-horizental mg-t-15" >
+				<ul className="list-wrap">
+								
 										<div className="empty-error tx-center mg-y-15 cr-item bg-white bg-f2 rounded-5 pd-15 pd-30 shadow">
 											<img
 												src="/static/img/no-data.svg"
@@ -554,35 +514,34 @@ const Home = () => {
 												Chưa có buổi học nào.
 											</p>
 										</div>
-									))
-								)}
+						
 							</ul> <
-						/div> < /
-						div > <
-						/>
-				)
-		}
-		<RatingLessonModal
+				/div> < /
+				div > <
+				/>
+		)
+}
+<RatingLessonModal
 				BookingID={stateRatingLesson.BookingID}
 				TeacherUID={stateRatingLesson.TeacherUID}
 				TeacherName={stateRatingLesson.TeacherName}
 				callback={cbRatingLesson}
 			/>
 
-		<
-		RequireLessonModal BookingID = { stateRequireLesson.BookingID } avatar = { stateRequireLesson.avatar } TeacherUID = { stateRequireLesson.TeacherUID } TeacherName = { stateRequireLesson.TeacherName } LessionName = { stateRequireLesson.LessionName } LessionMaterial = { stateRequireLesson.LessionMaterial } SpecialRequest = { stateRequireLesson.SpecialRequest } date = { stateRequireLesson.date } start = { stateRequireLesson.start } end = { stateRequireLesson.end } DocumentName = { stateRequireLesson.DocumentName } SkypeID = { stateRequireLesson.SkypeID } callback = { cbRequireLesson }
-		/>
+<
+RequireLessonModal BookingID = { stateRequireLesson.BookingID } avatar = { stateRequireLesson.avatar } TeacherUID = { stateRequireLesson.TeacherUID } TeacherName = { stateRequireLesson.TeacherName } LessionName = { stateRequireLesson.LessionName } LessionMaterial = { stateRequireLesson.LessionMaterial } SpecialRequest = { stateRequireLesson.SpecialRequest } date = { stateRequireLesson.date } start = { stateRequireLesson.start } end = { stateRequireLesson.end } DocumentName = { stateRequireLesson.DocumentName } SkypeID = { stateRequireLesson.SkypeID } callback = { cbRequireLesson }
+/>
 
-		<
-		CancelBookingLessonModal BookingID = { stateCancelLesson.BookingID } LessionName = { stateCancelLesson.LessionName } date = { stateCancelLesson.date } start = { stateCancelLesson.start } end = { stateCancelLesson.end } callback = { cbCancelBooking }
-		/>
+<
+CancelBookingLessonModal BookingID = { stateCancelLesson.BookingID } LessionName = { stateCancelLesson.LessionName } date = { stateCancelLesson.date } start = { stateCancelLesson.start } end = { stateCancelLesson.end } callback = { cbCancelBooking }
+/>
 
+<
+PopUpCancelLesson LessionName = { stateCancelLesson.LessionName } date = { stateCancelLesson.date } start = { stateCancelLesson.start } end = { stateCancelLesson.end } reason = { stateCancelLesson.reason }
+/> <
+ToastContainer / >
 		<
-		PopUpCancelLesson LessionName = { stateCancelLesson.LessionName } date = { stateCancelLesson.date } start = { stateCancelLesson.start } end = { stateCancelLesson.end } reason = { stateCancelLesson.reason }
-		/> <
-		ToastContainer / >
-				<
-				/>
+		/>
 );
 };
 

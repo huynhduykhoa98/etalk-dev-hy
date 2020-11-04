@@ -11,6 +11,14 @@ import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import dataHy from "../../../../data/data.json";
+
+console.log("o ngoai", dataHy.dataTable);
+
+function getData() {
+	const andt = dataHy.dataTable;
+	return andt;
+}
 
 const DateTimeFormat = new Intl.DateTimeFormat('vi-VN', {
 	month: '2-digit',
@@ -74,14 +82,14 @@ const AllClassRow = ({ data, showStudentModal }) => {
 
 	return (
 		<tr>
-			<td>Huỳnh Thị Phương Loan</td>
-			<td>Profressional </td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
+			<td>{data.Name}</td>
+			<td>{data.Package}</td>
+			<td>{data.Course}</td>
+			<td>{data.Date}</td>
+			<td>{data.Time}</td>
+			<td>{data.Remark}</td>
+			<td>{data.Homework}</td>
+			<td>{data.Action}</td>
 		</tr>
 	);
 };
@@ -123,6 +131,10 @@ const AttendanceRecord = () => {
 	const [totalResult, setTotalResult] = useState(0);
 	const [studentId, setStudentId] = useState(null);
 	const mdStudentInfo = useRef(true);
+
+	const layData = getData();
+	console.log("ng an",  layData);
+	// const andeptrai =  dataHy.dataTable;
 
 	const showStudentModal = (studentId) => {
 		setStudentId(studentId);
@@ -237,14 +249,14 @@ const AttendanceRecord = () => {
 						<table className="table table-classrooms table-borderless responsive-table table-hover">
 							<thead>
 								<tr>
-									<th className="clr-id">Teacher name</th>
-									<th className="clr-lesson">Package</th>
-									<th className="clr-student">Course</th>
-									<th className="clr-time">Date</th>
-									<th className="clr-status">Time</th>
-									<th className="clr-status">Remark</th>
-									<th className="clr-status">Homework</th>
-									<th className="clr-actions">Actions</th>
+									<th className="clr-id text-left">Teacher name</th>
+									<th className="clr-lesson text-left">Package</th>
+									<th className="clr-student text-left">Course</th>
+									<th className="clr-time text-left">Date</th>
+									<th className="clr-status text-left">Time</th>
+									<th className="clr-status text-left">Remark</th>
+									<th className="clr-status text-left">Homework</th>
+									<th className="clr-actions text-left">Actions</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -329,8 +341,9 @@ const AttendanceRecord = () => {
 											</td>
 										</tr>
 									</>
-								) : !!data && !!data.length > 0 ? (
-									data.map((item) => (
+								) : !!layData && !!layData.length > 0 ? (
+									layData.map((item) => (
+										
 										<AllClassRow
 											key={`${item.BookingID}`}
 											data={item}

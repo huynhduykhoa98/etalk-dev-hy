@@ -21,6 +21,8 @@ import { getStudentLayout } from '~/components/Layout';
 import dayjs from 'dayjs';
 import Swiper from 'swiper';
 import Link from 'next/link';
+import data from '../../../data/data.json';
+
 const genderArr = [
 	{
 		label: 'Tất cả giới tính',
@@ -84,7 +86,7 @@ const initialOnBookState = {
 	StudyTimeID: '',
 	date: '',
 };
-
+const listTeacher = {};
 const reducer = (prevState, { type, payload }) => {
 	switch (type) {
 		case 'STATE_CHANGE': {
@@ -420,6 +422,74 @@ const BookingLesson = () => {
 		// $(document).on('click', '.day-block', handleChangeDate.bind(this));
 		// $('#js-select-today').on('click', handleChangeDate.bind(this));
 	}, []);
+	const [currentPage, setCurrentPage] = useState(0);
+	const PER_PAGE = 6;
+	const offset = currentPage * PER_PAGE;
+	console.log(data.TeacherList);
+	const currentPageData = data.TeacherList.map((post, index) => (
+		<li key={'teacher' + index}>
+			<div className="infomation-content">
+				<div className="infomation-top">
+					<div className="tutor-infomation">
+						<h3 className="infomation-job">{data.TeacherList[0].Job}</h3>
+						<p className="infomation-name">{data.TeacherList[0].Name}</p>
+						<p className="infomation-country">
+							Quốc gia: <span>{data.TeacherList[0].Country}</span>
+						</p>
+						<p className="infomation-exp">
+							Kinh nghiệm giảng dạy: <span>{data.TeacherList[0].Exp}</span>
+						</p>
+					</div>
+					<div className="box-img-teacher">
+						<img
+							src="/static/img/avatar.jpg"
+							className="rounded-circle"
+							alt=""
+						/>
+					</div>
+				</div>
+				<div className="infomation-bottom">
+					<div className="tutor-rating-star">
+						<span className="number-start">1</span>
+						<div className="rating-stars">
+							<span className="empty-stars">
+								<i className="far fa-star"></i>
+								<i className="far fa-star"></i>
+								<i className="far fa-star"></i>
+								<i className="far fa-star"></i>
+								<i className="far fa-star"></i>
+							</span>
+							<span className="filled-stars" style={{ width: '20%' }}>
+								<i className="star fa fa-star"></i>
+								<i className="star fa fa-star"></i>
+								<i className="star fa fa-star"></i>
+								<i className="star fa fa-star"></i>
+								<i className="star fa fa-star"></i>
+							</span>
+						</div>
+					</div>
+					<a
+						href="/student/booked-schedule/calendar"
+						className="submit-search btn border-radius-5 btn-block w-100 bg-green"
+					>
+						<i className="fa fa-clone"></i> Đặt lịch học
+					</a>
+					<a
+						href="/student/profiles"
+						className="submit-search btn border-radius-5 btn-block w-100 bg-blue"
+					>
+						<i className="fa fa-user"></i> Xem thông tin
+					</a>
+				</div>
+			</div>
+		</li>
+	));
+
+	const pageCount = Math.ceil(data.TeacherList.length / PER_PAGE);
+
+	function handlePageClick({ selected: selectedPage }) {
+		setCurrentPage(selectedPage);
+	}
 
 	return (
 		<>
@@ -429,7 +499,6 @@ const BookingLesson = () => {
 					className="form-row"
 					style={{ maxWidth: 600, zIndex: 2, position: 'relative' }}
 				>
-					
 					<div className="col-sm-6 item">
 						<input
 							className="form-control margin-bottom-10"
@@ -474,6 +543,87 @@ const BookingLesson = () => {
 									</div>
 								</div>
 							)}
+							<div className="table-tutor-ds">
+								<ul className="list-tutor-ds">
+									{data.TeacherList.map((item) => (
+										<li>
+											<div className="infomation-content">
+												<div className="infomation-top">
+													<div className="tutor-infomation">
+														<h3 className="infomation-job">
+															{data.TeacherList[0].Job}
+														</h3>
+														<p className="infomation-name">
+															{data.TeacherList[0].Name}
+														</p>
+														<p className="infomation-country">
+															Quốc gia:{' '}
+															<span>{data.TeacherList[0].Country}</span>
+														</p>
+														<p className="infomation-exp">
+															Kinh nghiệm giảng dạy:{' '}
+															<span>{data.TeacherList[0].Exp}</span>
+														</p>
+													</div>
+													<div className="box-img-teacher">
+														<img
+															src="/static/img/avatar.jpg"
+															className="rounded-circle"
+															alt=""
+														/>
+													</div>
+												</div>
+												<div className="infomation-bottom">
+													<div className="tutor-rating-star">
+														<span className="number-start">1</span>
+														<div className="rating-stars">
+															<span className="empty-stars">
+																<i className="far fa-star"></i>
+																<i className="far fa-star"></i>
+																<i className="far fa-star"></i>
+																<i className="far fa-star"></i>
+																<i className="far fa-star"></i>
+															</span>
+															<span
+																className="filled-stars"
+																style={{ width: '20%' }}
+															>
+																<i className="star fa fa-star"></i>
+																<i className="star fa fa-star"></i>
+																<i className="star fa fa-star"></i>
+																<i className="star fa fa-star"></i>
+																<i className="star fa fa-star"></i>
+															</span>
+														</div>
+													</div>
+													<a
+														href="/student/booked-schedule/calendar"
+														className="submit-search btn border-radius-5 btn-block w-100 bg-green"
+													>
+														<i className="fa fa-clone"></i> Đặt lịch học
+													</a>
+													<a
+														href="/student/profile"
+														className="submit-search btn border-radius-5 btn-block w-100 bg-blue"
+													>
+														<i className="fa fa-user"></i> Xem thông tin
+													</a>
+												</div>
+											</div>
+										</li>
+									))}
+								</ul>
+								<Pagination
+									innerClass="pagination justify-content-center"
+									activePage={page}
+									itemsCountPerPage={pageSize}
+									totalItemsCount={2}
+									pageRangeDisplayed={3}
+									itemClass="page-item"
+									linkClass="page-link"
+									onChange={handlePageChange.bind(this)}
+								/>
+							</div>
 							{!!teachersList && teachersList.length > 0 ? (
 								<div className="table-tutor">
 									<ul className="list-tutors">
@@ -577,7 +727,7 @@ const BookingLesson = () => {
 									)}
 								</div>
 							) : (
-								<div className="pd-y-30 tx-center">
+								<div className="pd-y-30 tx-center dispaly-none">
 									<img
 										src="/static/img/no-teacher-found.svg"
 										className="wd-300 mg-x-auto"

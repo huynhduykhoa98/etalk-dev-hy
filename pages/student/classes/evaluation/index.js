@@ -11,7 +11,8 @@ import Select, { components } from 'react-select';
 import { appSettings } from '~/config';
 import { getStudentLayout } from '~/components/Layout';
 import { randomId } from '~/utils';
-
+import data from "../../../../data/data.json";
+console.log(data)
 const fakeData = [
 	{
 		ElearnBookingID: randomId(),
@@ -247,7 +248,7 @@ const Feedback = () => {
 								<p className="tx-16 mg-b-0">
 									Trung bình 100 phản hồi gần nhất của giáo viên:{' '}
 									<span className="tx-primary tx-16 tx-bold">
-										{overview.Avarage}
+										{data.Overview[0].Avarage}
 									</span>
 								</p>
 							</>

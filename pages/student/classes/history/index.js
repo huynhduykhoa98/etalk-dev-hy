@@ -140,17 +140,19 @@ const EvaluationLists = () => {
 	const [loading, setLoading] = useState(true);
 
 	const getAPI = async (params) => {
-		setLoading(true);
-		const res = await getLessonHistory(params);
-		if (res.Code === 1) {
-			//setData(res.Data);
-			setData(fakeData);
-			setPageSize(res.PageSize);
-			setTotalResult(res.TotalResult);
-		} else {
-			setData({});
-		}
 		setLoading(false);
+		setData(fakeData);
+
+		// const res = await getLessonHistory(params);
+		// if (res.Code === 1) {
+		// 	//setData(res.Data);
+		// 	setLoading(true);
+		// 	setPageSize(res.PageSize);
+		// 	setTotalResult(res.TotalResult);
+		// } else {
+		// 	setData({});
+		// }
+		// setLoading(false);
 	};
 
 	const handlePageChange = (pageNumber) => {
@@ -184,215 +186,218 @@ const EvaluationLists = () => {
 		});
 	}, []);
 	return (
-		<>
-			<h1 className="main-title-page">Lịch sử buổi đã học</h1>
-			<div className="card">
-				<div className="card-body">
-					<form
-						action=""
-						method="get"
-						noValidate
-						className="st-date metronic-form"
-						onSubmit={onSubmit}
-					>
-						<div
-							className="d-flex from-to-group wd-100p flex-md-nowrap flex-wrap wd-md-500"
-							id="filter-time"
+		console.log('render'),
+		(
+			<>
+				<h1 className="main-title-page">Lịch sử buổi đã học</h1>
+				<div className="card">
+					<div className="card-body">
+						<form
+							action=""
+							method="get"
+							noValidate
+							className="st-date metronic-form"
+							onSubmit={onSubmit}
 						>
-							<div className="form-row flex-grow-1 mg-sm-r-5">
-								<div className="col">
-									<DatePicker
-										dateFormat="dd/MM/yyyy"
-										className="form-control"
-										placeholderText={`From date`}
-										selected={fromDate}
-										onChange={(date) => setFromDate(date)}
-										selectsStart
-										isClearable={!!fromDate ? true : false}
-										startDate={fromDate}
-										endDate={toDate}
-									/>
-									{/* <input type="text" name="start-day " onChange={(value) =>  setFromDate(value)} className="form-control datetimepicker from-date" placeholder="From date" /> */}
-								</div>
-								<div className="col">
-									<DatePicker
-										dateFormat="dd/MM/yyyy"
-										className="form-control"
-										placeholderText={`To date`}
-										selected={toDate}
-										onChange={(date) => setToDate(date)}
-										selectsEnd
-										isClearable={!!toDate ? true : false}
-										startDate={fromDate}
-										endDate={toDate}
-										minDate={fromDate}
-									/>
-								</div>
-							</div>
-							<div className="flex-grow-0 tx-right flex-shrink-0 mg-t-30 mg-sm-t-0">
-								<button type="submit" className="btn btn-primary ">
-									<FontAwesomeIcon icon="filter" className="fa fa-filter" />{' '}
-									Filter
-								</button>
-							</div>
-						</div>
-					</form>
-
-					<div className="table-responsive mg-t-20">
-						<table className="table">
-							<thead className="">
-								<tr>
-									<th>Thời gian</th>
-									<th>Khóa học</th>
-									<th>Bài học</th>
-									<th>Giáo viên</th>
-									<th>Trạng thái</th>
-									<th></th>
-								</tr>
-							</thead>
-							<tbody>
-								{loading ? (
-									<>
-										<tr>
-											<td>
-												<Skeleton />
-											</td>
-											<td>
-												<Skeleton />
-											</td>
-											<td>
-												<Skeleton />
-											</td>
-											<td>
-												<Skeleton />
-											</td>
-											<td>
-												<Skeleton />
-											</td>
-											<td>
-												<Skeleton />
-											</td>
-										</tr>
-										<tr>
-											<td>
-												<Skeleton />
-											</td>
-											<td>
-												<Skeleton />
-											</td>
-											<td>
-												<Skeleton />
-											</td>
-											<td>
-												<Skeleton />
-											</td>
-											<td>
-												<Skeleton />
-											</td>
-											<td>
-												<Skeleton />
-											</td>
-										</tr>
-										<tr>
-											<td>
-												<Skeleton />
-											</td>
-											<td>
-												<Skeleton />
-											</td>
-											<td>
-												<Skeleton />
-											</td>
-											<td>
-												<Skeleton />
-											</td>
-											<td>
-												<Skeleton />
-											</td>
-											<td>
-												<Skeleton />
-											</td>
-										</tr>
-									</>
-								) : !!data && Array.isArray(data) && data.length > 0 ? (
-									data.map((item) => (
-										<LessonItem
-											key={item.BookingID}
-											BookingID={item.BookingID}
-											DocumentID={item.DocumentID}
-											DocumentName={item.DocumentName}
-											DocumentDetailID={item.DocumentDetailID}
-											LessionName={item.LessionName}
-											LessonDetail={item.LessonDetail}
-											start={convertDateFromTo(item.Schedule).fromTime}
-											end={convertDateFromTo(item.Schedule).endTime}
-											date={item.Schedule}
-											TeacherUID={item.TeacherUID}
-											TeacherName={item.TeacherName}
-											Status={item.Status}
-											StatusString={item.StatusString}
+							<div
+								className="d-flex from-to-group wd-100p flex-md-nowrap flex-wrap wd-md-500"
+								id="filter-time"
+							>
+								<div className="form-row flex-grow-1 mg-sm-r-5">
+									<div className="col">
+										<DatePicker
+											dateFormat="dd/MM/yyyy"
+											className="form-control"
+											placeholderText={`From date`}
+											selected={fromDate}
+											onChange={(date) => setFromDate(date)}
+											selectsStart
+											isClearable={!!fromDate ? true : false}
+											startDate={fromDate}
+											endDate={toDate}
 										/>
-									))
-								) : data.length === 0 ? (
-									<tr className="bg-transparent">
-										<td colSpan="6" className="tx-center">
-											<img
-												src="/static/img/no-data.svg"
-												alt="no-booking"
-												className="wd-200 d-block mx-auto"
-											/>
-											<p className="tx-danger tx-medium mg-t-15">
-												{start.length > 0 && end.length > 0
-													? `Bạn chưa đăng ký lớp học nào từ ${
-															start.length > 0 ? `${start}` : ''
-													  }  ${end.length > 0 ? `đến ${end}` : ''}`
-													: start.length === 0 && end.length === 0
-													? `Bạn chưa đăng ký lớp học nào`
-													: start.length === 0
-													? `Bạn chưa đăng ký lớp học nào trước ${end}`
-													: `Bạn chưa đăng ký lớp học nào sau ${start}`}
-											</p>
-											<Link href="/student/booking-schedule">
-												<a href={true} className="btn btn-primary">
-													Đặt lịch học
-												</a>
-											</Link>
-										</td>
+										{/* <input type="text" name="start-day " onChange={(value) =>  setFromDate(value)} className="form-control datetimepicker from-date" placeholder="From date" /> */}
+									</div>
+									<div className="col">
+										<DatePicker
+											dateFormat="dd/MM/yyyy"
+											className="form-control"
+											placeholderText={`To date`}
+											selected={toDate}
+											onChange={(date) => setToDate(date)}
+											selectsEnd
+											isClearable={!!toDate ? true : false}
+											startDate={fromDate}
+											endDate={toDate}
+											minDate={fromDate}
+										/>
+									</div>
+								</div>
+								<div className="flex-grow-0 tx-right flex-shrink-0 mg-t-30 mg-sm-t-0">
+									<button type="submit" className="btn btn-primary ">
+										<FontAwesomeIcon icon="filter" className="fa fa-filter" />{' '}
+										Filter
+									</button>
+								</div>
+							</div>
+						</form>
+
+						<div className="table-responsive mg-t-20">
+							<table className="table">
+								<thead className="">
+									<tr>
+										<th>Thời gian</th>
+										<th>Khóa học</th>
+										<th>Bài học</th>
+										<th>Giáo viên</th>
+										<th>Trạng thái</th>
+										<th></th>
 									</tr>
-								) : (
-									!loading && (
+								</thead>
+								<tbody>
+									{loading ? (
+										<>
+											<tr>
+												<td>
+													<Skeleton />
+												</td>
+												<td>
+													<Skeleton />
+												</td>
+												<td>
+													<Skeleton />
+												</td>
+												<td>
+													<Skeleton />
+												</td>
+												<td>
+													<Skeleton />
+												</td>
+												<td>
+													<Skeleton />
+												</td>
+											</tr>
+											<tr>
+												<td>
+													<Skeleton />
+												</td>
+												<td>
+													<Skeleton />
+												</td>
+												<td>
+													<Skeleton />
+												</td>
+												<td>
+													<Skeleton />
+												</td>
+												<td>
+													<Skeleton />
+												</td>
+												<td>
+													<Skeleton />
+												</td>
+											</tr>
+											<tr>
+												<td>
+													<Skeleton />
+												</td>
+												<td>
+													<Skeleton />
+												</td>
+												<td>
+													<Skeleton />
+												</td>
+												<td>
+													<Skeleton />
+												</td>
+												<td>
+													<Skeleton />
+												</td>
+												<td>
+													<Skeleton />
+												</td>
+											</tr>
+										</>
+									) : !!data && Array.isArray(data) && data.length > 0 ? (
+										data.map((item) => (
+											<LessonItem
+												key={item.BookingID}
+												BookingID={item.BookingID}
+												DocumentID={item.DocumentID}
+												DocumentName={item.DocumentName}
+												DocumentDetailID={item.DocumentDetailID}
+												LessionName={item.LessionName}
+												LessonDetail={item.LessonDetail}
+												start={convertDateFromTo(item.Schedule).fromTime}
+												end={convertDateFromTo(item.Schedule).endTime}
+												date={item.Schedule}
+												TeacherUID={item.TeacherUID}
+												TeacherName={item.TeacherName}
+												Status={item.Status}
+												StatusString={item.StatusString}
+											/>
+										))
+									) : data.length === 0 ? (
 										<tr className="bg-transparent">
 											<td colSpan="6" className="tx-center">
-												<span className="d-block text-center tx-danger tx-medium">
-													Đã có lỗi xảy ra, xin vui lòng thử lại
-												</span>
 												<img
-													src="/static/assets/img/error.svg"
-													alt="error"
-													className="wd-200 mg-b-15"
+													src="/static/img/no-data.svg"
+													alt="no-booking"
+													className="wd-200 d-block mx-auto"
 												/>
+												<p className="tx-danger tx-medium mg-t-15">
+													{start.length > 0 && end.length > 0
+														? `Bạn chưa đăng ký lớp học nào từ ${
+																start.length > 0 ? `${start}` : ''
+														  }  ${end.length > 0 ? `đến ${end}` : ''}`
+														: start.length === 0 && end.length === 0
+														? `Bạn chưa đăng ký lớp học nào`
+														: start.length === 0
+														? `Bạn chưa đăng ký lớp học nào trước ${end}`
+														: `Bạn chưa đăng ký lớp học nào sau ${start}`}
+												</p>
+												<Link href="/student/booking-schedule">
+													<a href={true} className="btn btn-primary">
+														Đặt lịch học
+													</a>
+												</Link>
 											</td>
 										</tr>
-									)
-								)}
-							</tbody>
-						</table>
+									) : (
+										!loading && (
+											<tr className="bg-transparent">
+												<td colSpan="6" className="tx-center">
+													<span className="d-block text-center tx-danger tx-medium">
+														Đã có lỗi xảy ra, xin vui lòng thử lại
+													</span>
+													<img
+														src="/static/assets/img/error.svg"
+														alt="error"
+														className="wd-200 mg-b-15"
+													/>
+												</td>
+											</tr>
+										)
+									)}
+								</tbody>
+							</table>
+						</div>
+						{pageSize < totalResult && (
+							<Pagination
+								innerClass="pagination justify-content-end mt-3"
+								activePage={page}
+								itemsCountPerPage={pageSize}
+								totalItemsCount={totalResult}
+								pageRangeDisplayed={3}
+								itemClass="page-item"
+								linkClass="page-link"
+								onChange={handlePageChange.bind(this)}
+							/>
+						)}
 					</div>
-					{pageSize < totalResult && (
-						<Pagination
-							innerClass="pagination justify-content-end mt-3"
-							activePage={page}
-							itemsCountPerPage={pageSize}
-							totalItemsCount={totalResult}
-							pageRangeDisplayed={3}
-							itemClass="page-item"
-							linkClass="page-link"
-							onChange={handlePageChange.bind(this)}
-						/>
-					)}
 				</div>
-			</div>
-		</>
+			</>
+		)
 	);
 };
 

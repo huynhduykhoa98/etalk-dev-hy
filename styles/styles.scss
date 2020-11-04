@@ -6724,7 +6724,17 @@ footer.footer {
 		}
 	}
 }
+.cr-item {
+	border-bottom: 0;
+	box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.15);
+	transition: all 0.2s ease;
+	border-radius: 5px;
 
+	&:hover {
+		transform: translateY(-10px);
+		background: #fff;
+	}
+}
 .profile-info-list > li {
 	margin-bottom: 15px;
 }

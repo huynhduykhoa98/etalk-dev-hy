@@ -7,25 +7,25 @@ import dayjs from 'dayjs';
 
 const fakeData = [
 	{
-		PlanName: 'Starter Immediately',
-		TotalLesson: 30,
+		PlanName: 'Tiếng Anh giao tiếp cơ bản trong 10 ngày',
+		TotalLesson: 20,
 		BookedLesson: 15,
 		StartDate: '10/06/2020 10:30 - 20:30',
 		EndDate: '10/12/2020 10:30 - 20:30',
 		Status: 1,
 	},
 	{
-		PlanName: 'Starter Immediately',
+		PlanName: 'Tiếng Anh nói như người Anh trong 20 ngày',
 		TotalLesson: 30,
-		BookedLesson: 15,
+		BookedLesson: 20,
 		StartDate: '10/06/2020 10:30 - 20:30',
 		EndDate: '10/12/2020 10:30 - 20:30',
 		Status: 1,
 	},
 	{
-		PlanName: 'Starter Immediately',
-		TotalLesson: 30,
-		BookedLesson: 15,
+		PlanName: 'Dành riêng cho người Việt sang Anh du học',
+		TotalLesson: 40,
+		BookedLesson: 25,
 		StartDate: '10/06/2020 10:30 - 20:30',
 		EndDate: '10/12/2020 10:30 - 20:30',
 		Status: 1,
@@ -49,16 +49,16 @@ const Package = () => {
 		}
 	};
 
-	const getAPI = async (params) => {
-		setLoading(true);
-		const res = await getPaymentHistoryAPI(params);
-		if (res.Code === 1) {
-			// setState(res.Data);
-			setState(fakeData);
-			setPageSize(res.PageSize);
-			setTotalResult(res.TotalResult);
-		} else setState(null);
-		setLoading(false);
+	const getAPI = async (params) => {setState(fakeData);
+		// setLoading(true);
+		// const res = await getPaymentHistoryAPI(params);
+		// if (res.Code === 1) {
+		// 	// setState(res.Data);
+			
+		// 	setPageSize(res.PageSize);
+		// 	setTotalResult(res.TotalResult);
+		// } else setState(null);
+		// setLoading(false);
 	};
 
 	useEffect(() => {
@@ -244,7 +244,7 @@ const Package = () => {
 												</td>
 
 												<td>
-													<span className="badge badge-warning">Đang học</span>
+													<span className="badge badge-warning badge-beauty">Đang học</span>
 												</td>
 											</tr>
 										))

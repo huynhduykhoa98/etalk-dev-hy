@@ -114,7 +114,7 @@ const checkCancelTime = (startDate) => {
 };
 
 const TableView = () => {
-	const [schedules, setSchedules] = useState(null);
+	const [schedules, setSchedules] = useState(1);
 	const [isLoading, setIsLoading] = useState(true);
 	const [pageNumber, setPageNumber] = useState(1);
 	const [pageSize, setPageSize] = useState(0);
@@ -123,6 +123,7 @@ const TableView = () => {
 	const [toDate, setToDate] = useState('');
 
 	const getUpcomingSchedule = async () => {
+		setSchedules(fakeData);
 		setIsLoading(true);
 		try {
 			const res = await getUpcomingLessons({ Page: pageNumber });
@@ -188,7 +189,6 @@ const TableView = () => {
 								onClick={getUpcomingSchedule}
 							>
 								<FontAwesomeIcon icon="search" className="fa fa-search" />{' '}
-								
 							</button>
 						</div>
 					</div>

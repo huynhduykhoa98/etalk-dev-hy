@@ -4,8 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { withTranslation } from '~/i18n';
 import './index.module.scss';
 const TeacherMenu = ({ t }) => {
-		return (
-				<ul className="nav nav-aside">
+	return (
+		<ul className="nav nav-aside">
 			<li className="nav-item active">
 				<Link href="/teacher/home" as={`/teacher/home`}>
 					<a href={true} className="nav-link">
@@ -213,12 +213,12 @@ const TeacherMenu = ({ t }) => {
 		</Link>
 	</li> */}
 		</ul>
-		);
+	);
 };
 
 const StudentMenu = ({ t }) => {
-		return (
-				<ul className="nav nav-aside">
+	return (
+		<ul className="nav nav-aside">
 			{/* <li className="nav-item active">
 				<Link href="/student/home" as="/student/home">
 					<a href={true} className="nav-link">
@@ -377,15 +377,9 @@ const StudentMenu = ({ t }) => {
 				</Link>
 			</li>
 			<li className="nav-item">
-				<Link
-					href="/student/profile-teacher"
-					as="/student/profile-teacher"
-				>
+				<Link href="/student/profile-teacher" as="/student/profile-teacher">
 					<a href={true} className="nav-link">
-						<FontAwesomeIcon
-							icon="copy"
-							className="fas fa-copy"
-						/>
+						<FontAwesomeIcon icon="copy" className="fas fa-copy" />
 						<span>{t('menu-student:profile-teacher')}</span>
 					</a>
 				</Link>
@@ -564,23 +558,23 @@ const StudentMenu = ({ t }) => {
 				</ul>
 			</li>
 		</ul>
-		);
+	);
 };
 
 const Menu = ({ t, isStudent }) => {
-		// useEffect(() => {
-		// 	feather && feather.replace();
-		// }, []);
-		return ( <
-				>
-				<aside className="aside aside-fixed">
+	// useEffect(() => {
+	// 	feather && feather.replace();
+	// }, []);
+	return (
+		<>
+			<aside className="aside aside-fixed">
 				<div className="aside-header">
 					<Link
 						href={isStudent ? '/student/home' : '/teacher/home'}
 						as={isStudent ? '/student/home' : '/teacher/home'}
 					>
 						<a href={true} className="aside-logo">
-							<img src="/static/img/logo-white.png" alt="logo" />
+							<img src="/static/img/logo-white-1.jpg" alt="logo" />
 						</a>
 					</Link>{' '}
 					<a href={true} className="aside-menu-link">
@@ -693,13 +687,13 @@ const Menu = ({ t, isStudent }) => {
 					</div>
 					{isStudent ? <StudentMenu t={t} /> : <TeacherMenu t={t} />}
 				</div>
-			</aside> <
-				/>
-		);
+			</aside>{' '}
+		</>
+	);
 };
 
 Menu.getInitialProps = async () => ({
-		namespacesRequired: ['menu', 'menu-student'],
+	namespacesRequired: ['menu', 'menu-student'],
 });
 
 export default withTranslation(['menu', 'menu-student'])(Menu);
