@@ -109,8 +109,8 @@
         "ID": "5",
 	    "Avarage": "Nhận xét của giáo viên"
     }],
-    "GetAllFaq": [{
-        "ID": "5",
+    "Question": [{
+        "title": "Những lợi ích khi bạn học trên hệ thống E-talk ",
 	    "Avarage": "Nhận xét của giáo viên"
     }],
     "dataTable": [{

@@ -49,12 +49,13 @@ const Package = () => {
 		}
 	};
 
-	const getAPI = async (params) => {setState(fakeData);
+	const getAPI = async (params) => {
+		setState(fakeData);
 		// setLoading(true);
 		// const res = await getPaymentHistoryAPI(params);
 		// if (res.Code === 1) {
 		// 	// setState(res.Data);
-			
+
 		// 	setPageSize(res.PageSize);
 		// 	setTotalResult(res.TotalResult);
 		// } else setState(null);
@@ -140,7 +141,7 @@ const Package = () => {
 </div>*/}
 					<div className="table-tiket">
 						<div className="table-responsive">
-							<table className="table tx-center tx-nowrap">
+							<table className="table tx-center tx-nowrap table-mobile">
 								<thead className="">
 									<tr>
 										<th className="mw-200 tx-left">Khóa học</th>
@@ -244,7 +245,9 @@ const Package = () => {
 												</td>
 
 												<td>
-													<span className="badge badge-warning badge-beauty">Đang học</span>
+													<span className="badge badge-warning badge-beauty">
+														Đang học
+													</span>
 												</td>
 											</tr>
 										))

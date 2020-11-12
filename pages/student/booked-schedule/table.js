@@ -150,7 +150,7 @@ const TableView = () => {
 			<div className="card">
 				<div className="card-body bg-white-radius">
 					<div
-						className="d-flex from-to-group mg-b-15 flex-wrap"
+						className="d-flex from-to-group mg-b-15 flex-wrap absoulute-date"
 						id="filter-time"
 					>
 						<div className="d-flex flex-wrap-0">

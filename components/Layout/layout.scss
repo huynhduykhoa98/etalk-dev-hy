@@ -283,7 +283,7 @@
 .css-5s2wct-control {
 	border-radius: 99px !important;
 }
-.from-to-group {
+.from-to-group.absoulute-date {
 	position: absolute;
 	top: -70px;
 	right: 0;
@@ -457,7 +457,7 @@
 	stroke: #ffffff !important;
 }
 @media screen and (max-width: 768px) {
-	.from-to-group {
+	.from-to-group.absoulute-date {
 		position: relative;
 		top: 0;
 	}
@@ -613,6 +613,15 @@
 	}
 	.w-full {
 		width: 100%;
+	}
+	.table-mobile {
+		min-width: 800px;
+	}
+	.aside-body {
+		height: calc(100% - 54px);
+	}
+	.table-500 {
+		min-width: 500px;
 	}
 }
 @media screen and (max-width: 500px) {
