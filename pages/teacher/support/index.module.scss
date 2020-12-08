@@ -60,3 +60,11 @@
 	border-radius: 0.42rem;
 	justify-content: center;
 }
+.m-g-l-20 {
+	margin-left: 20px;
+}
+@media screen and (max-width: 768px) {
+	.w-res-100 {
+		width: 100% !important;
+	}
+}

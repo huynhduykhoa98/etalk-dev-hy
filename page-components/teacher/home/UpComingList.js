@@ -12,13 +12,13 @@ import StudentInformationModal from '~components/common/Modal/StudentInformation
 import Pagination from 'react-js-pagination';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const initialState = [
+const fakeUpcomming = [
 	{
 		BookingID: 3,
 		TeacherUID: 1,
 		TeacherName: 'Trương Công Thức',
 		StudentUID: 3,
-		StudentName: 'Trương Văn Lam',
+		StudentName: 'Tứ Hỷ',
 		ScheduleTimeVN: '29/07/2020 14:00 - 14:25',
 		ScheduleTimeUTC: '29/07/2020 10:00 - 14:25',
 		DocumentName: 'SOLUTION 6 - Grade 6',
@@ -37,7 +37,61 @@ const initialState = [
 		TeacherUID: 1,
 		TeacherName: 'Trương Công Thức',
 		StudentUID: 4,
-		StudentName: 'Trương Văn Lam',
+		StudentName: 'Kha Lê',
+		ScheduleTimeVN: '26/06/2020 14:00 - 14:25',
+		ScheduleTimeUTC: '26/06/2020 12:00 - 14:25',
+		DocumentName: 'SOLUTION 6 - Grade 6',
+		LessionName: 'Lession 4',
+		LessionMaterial:
+			'https://drive.google.com/file/d/1_84xFBVfdeITWS9IakzeGedPnO4xafM3/view',
+		SkypeID: 'live:123123',
+		SpecialRequest: ' want the tutor to proactively correct my mistakes',
+		Status: 2,
+		StatusString: 'Finished',
+		FinishType: 0,
+	},
+	{
+		BookingID: 4,
+		TeacherUID: 1,
+		TeacherName: 'Trương Công Thức',
+		StudentUID: 4,
+		StudentName: 'An Nguyễn',
+		ScheduleTimeVN: '26/06/2020 14:00 - 14:25',
+		ScheduleTimeUTC: '26/06/2020 12:00 - 14:25',
+		DocumentName: 'SOLUTION 6 - Grade 6',
+		LessionName: 'Lession 4',
+		LessionMaterial:
+			'https://drive.google.com/file/d/1_84xFBVfdeITWS9IakzeGedPnO4xafM3/view',
+		SkypeID: 'live:123123',
+		SpecialRequest: ' want the tutor to proactively correct my mistakes',
+		Status: 2,
+		StatusString: 'Finished',
+		FinishType: 0,
+	},
+	{
+		BookingID: 4,
+		TeacherUID: 1,
+		TeacherName: 'Trương Công Thức',
+		StudentUID: 4,
+		StudentName: 'Nhựt Anh',
+		ScheduleTimeVN: '26/06/2020 14:00 - 14:25',
+		ScheduleTimeUTC: '26/06/2020 12:00 - 14:25',
+		DocumentName: 'SOLUTION 6 - Grade 6',
+		LessionName: 'Lession 4',
+		LessionMaterial:
+			'https://drive.google.com/file/d/1_84xFBVfdeITWS9IakzeGedPnO4xafM3/view',
+		SkypeID: 'live:123123',
+		SpecialRequest: ' want the tutor to proactively correct my mistakes',
+		Status: 2,
+		StatusString: 'Finished',
+		FinishType: 0,
+	},
+	{
+		BookingID: 4,
+		TeacherUID: 1,
+		TeacherName: 'Trương Công Thức',
+		StudentUID: 4,
+		StudentName: 'Hùng Nguyễn',
 		ScheduleTimeVN: '26/06/2020 14:00 - 14:25',
 		ScheduleTimeUTC: '26/06/2020 12:00 - 14:25',
 		DocumentName: 'SOLUTION 6 - Grade 6',
@@ -151,8 +205,8 @@ const UpComingList = ({ itemShow }) => {
 											<Skeleton count={1} />
 										</td>
 									</tr>
-								) : !!state && state.length > 0 ? (
-									[...state].map(
+								) : !!fakeUpcomming && fakeUpcomming.length > 0 ? (
+									[...fakeUpcomming].map(
 										(ls, index) =>
 											index < itemShow.value && (
 												<tr key={`${index}`}>

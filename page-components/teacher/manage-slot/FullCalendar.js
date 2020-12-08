@@ -221,7 +221,7 @@ const FullCalendar = ({ data = [] }) => {
 				position: toast.POSITION.TOP_RIGHT,
 				autoClose: 2000,
 			});
-			console.log('Loi  khi goi api');
+			console.log('Loi khi goi api');
 		}
 	};
 
@@ -509,13 +509,13 @@ const FullCalendar = ({ data = [] }) => {
 			expandRows: true,
 			slotMinTime: '00:00',
 			slotMaxTime: '24:00',
-			events: data
-				.filter((x) => x.isEmptySlot === false)
-				.map((y) => ({
-					...y,
-					id: randomId(),
-					loading: false,
-				})), //Filter for demo
+			events: data,
+			// .filter((x) => x.isEmptySlot === false)
+			// .map((y) => ({
+			// 	...y,
+			// 	id: randomId(),
+			// 	loading: false,
+			// })), //Filter for demo
 			// event: [],
 			headerToolbar: {
 				start: 'timeGridWeek,dayGridMonth,listWeek', // will normally be on the left. if RTL, will be on the right
@@ -524,7 +524,7 @@ const FullCalendar = ({ data = [] }) => {
 			},
 			titleFormat: { year: 'numeric', month: 'short' },
 			navLinks: true, // can click day/week names to navigate views
-			editable: false,
+			editable: true,
 			stickyHeaderDates: 'auto',
 			selectable: true,
 			nowIndicator: true,
@@ -684,6 +684,21 @@ const FullCalendar = ({ data = [] }) => {
 			}
 			window.location.href = `skype:${eventData?.bookInfo?.SkypeID ?? ''}?chat`;
 		});
+
+		// function calendar() {
+		// 	// Caching calendar for later use
+		// 	const FullCalendar = $('#calendar');
+
+		// 	// Build calendar with default view of mobile query
+		// 	FullCalendar({ defaultView: 'timeGridWeek' });
+
+		// 	// Register media query watch handlers
+		// 	enquire.register('screen and (max-width: 1023px)', {
+		// 		match: () => {
+		// 			calendar('changeView', 'timeGridDay');
+		// 		},
+		// 	});
+		// }
 
 		$('body').on(
 			'click',
